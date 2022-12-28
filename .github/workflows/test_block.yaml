@@ -1,0 +1,22 @@
+name: Test Block
+workflow_dispatch:
+  push:
+    branches: [ main ]
+    tags: [ '*' ]
+
+jobs:
+  test:
+    name: Test block Production
+    runs-on: Ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11.1]
+    
+    steps:
+    - name: Git checkout 
+      uses: actions/checkout@v2
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
