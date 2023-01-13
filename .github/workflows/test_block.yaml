@@ -27,13 +27,17 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-    - name: Run the Client Tests
+    - name: Run Client
       run: |
         wget -O zeitgeist https://github.com/zeitgeistpm/zeitgeist/releases/download/v0.3.6/zeitgeist_parachain
         chmod 0755 zeitgeist
         nohup ./zeitgeist --dev --tmp > test.log 2>&1 &
         echo $! > pid.txt
         cd tests && pytest -v
+
+    - name: Test Client
+      run: cd tests && pytest -v
+      
 
 
         
