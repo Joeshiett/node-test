@@ -1,5 +1,6 @@
 name: Client Test
-workflow_dispatch:
+on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     tags: [ '*' ]
