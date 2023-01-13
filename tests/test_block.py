@@ -14,6 +14,8 @@ def test_websocket_rpc():
         ws_conn = ws_provider.connect_websocket()
         if ws_conn is None:
             assert True, "Websocket Connection established"
+        else:
+            pytest.fail()
 
     except WebSocketBadStatusException as bad_status:
         pytest.fail(f'failed due to {bad_status}')
@@ -29,6 +31,8 @@ def test_json_rpc():
     
 # Test Block Production
 def test_block_production():
+    # Delay function for 60 seconds
+    time.sleep(60)
     try:
         ws_provider = SubstrateInterface(
             url="ws://127.0.0.1:9944",
@@ -37,10 +41,9 @@ def test_block_production():
         
         # Test if Block number up to 5 in last 60 seconds
         for key, value in block_header['header'].items():
-            time.sleep(60)
             if key == 'number':
-                if value > 10:
-                    assert value > 10
+                if value > 5:
+                    assert value > 5
                 elif value == 0:
                     pytest.fail(f'block number not exceeding zero!')
                    
