@@ -9,13 +9,13 @@ def test_websocket_rpc():
     try:
         ws_provider = SubstrateInterface(
             url="ws://127.0.0.1:9944",
-        )   
+        )
         # Retrieve the finalized block
         ws_conn = ws_provider.connect_websocket()
         if ws_conn is None:
             assert True, "Websocket Connection established"
         else:
-            pytest.fail()
+            pytest.fail(f'Websocket Connection not established!')
 
     except WebSocketBadStatusException as bad_status:
         pytest.fail(f'failed due to {bad_status}')
@@ -38,7 +38,6 @@ def test_block_production():
             url="ws://127.0.0.1:9944",
         )
         block_header = ws_provider.get_block_header(finalized_only=True)
-        
         # Test if Block number up to 5 in last 60 seconds
         for key, value in block_header['header'].items():
             if key == 'number':

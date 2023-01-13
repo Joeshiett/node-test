@@ -1,37 +1,38 @@
-# name: Test Block
-# workflow_dispatch:
-#   push:
-#     branches: [ main ]
-#     tags: [ '*' ]
+name: Client Test
+workflow_dispatch:
+  push:
+    branches: [ main ]
+    tags: [ '*' ]
 
-# jobs:
-#   test:
-#     name: Test block Production
-#     runs-on: Ubuntu-latest
-#     strategy:
-#       matrix:
-#         python-version: [3.11.1]
+jobs:
+  client-test:
+    name: Client Test
+    runs-on: Ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11.1]
     
-#     steps:
-#     - name: Git checkout 
-#       uses: actions/checkout@v2
+    steps:
+    - name: Git checkout 
+      uses: actions/checkout@v2
     
-#     - name: Set up Python ${{ matrix.python-version }}
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
 
-#     - name: Install Python dependencies
-#       run: |
-#         python -m pip install --upgrade pip
-#         if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-#     - name: Run the Block production tests
-#       run: |
-#         git clone https://github.com/zeitgeistpm/zeitgeist.git
-#         cd zeitgeist
-#         mv ./tests zeitgeist
-#         rustup show
-#         cargo build --release --features parachain --bin zeitgeist
-#         cargo run 
-#         pytest -v
+    - name: Run the Client Tests
+      run: |
+        wget -O zeitgeist https://github.com/zeitgeistpm/zeitgeist/releases/download/v0.3.6/zeitgeist_parachain
+        chmod 0755 zeitgeist
+        nohup ./zeitgeist --dev --tmp > test.log 2>&1 &
+        echo $! > pid.txt
+        cd tests && pytest -v
+
+
+        
