@@ -33,7 +33,6 @@ jobs:
         chmod 0755 zeitgeist
         nohup ./zeitgeist --dev --tmp > test.log 2>&1 &
         echo $! > pid.txt
-        cd tests && pytest -v
 
     - name: Test Client
       run: cd tests && pytest -v
