@@ -29,6 +29,7 @@ jobs:
 
     - name: Run Client
       run: |
+        echo $PWD
         wget -O zeitgeist https://github.com/zeitgeistpm/zeitgeist/releases/download/v0.3.6/zeitgeist_parachain
         chmod 0755 $PWD/zeitgeist
         nohup $PWD/zeitgeist --dev --tmp > test.log 2>&1 &
