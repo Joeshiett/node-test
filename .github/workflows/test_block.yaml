@@ -24,7 +24,7 @@ jobs:
         echo $! > pid.txt
     
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+    - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
