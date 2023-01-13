@@ -14,8 +14,14 @@ jobs:
         python-version: [3.11.1]
     
     steps:
-    - name: Git checkout 
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Start Client 
+      run: |
+        echo $PWD
+        wget -O zeitgeist https://github.com/zeitgeistpm/zeitgeist/releases/download/v0.3.6/zeitgeist_parachain
+        chmod 0755 $PWD/zeitgeist
+        nohup $PWD/zeitgeist --dev --tmp > test.log 2>&1 &
+        echo $! > pid.txt
     
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -26,14 +32,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
-
-    - name: Run Client
-      run: |
-        echo $PWD
-        wget -O zeitgeist https://github.com/zeitgeistpm/zeitgeist/releases/download/v0.3.6/zeitgeist_parachain
-        chmod 0755 $PWD/zeitgeist
-        nohup $PWD/zeitgeist --dev --tmp > test.log 2>&1 &
-        echo $! > pid.txt
 
     - name: Test Client
       run: cd tests && pytest -v
