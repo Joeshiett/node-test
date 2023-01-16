@@ -40,7 +40,7 @@ def test_block_production():
         block_num = []           
         def subscription_handler(obj, update_nr, subscription_id):
             block_num.append(obj['header']['number'])
-            if update_nr == 5:
+            if update_nr > 5:
                 return block_num 
 
         result = ws_provider.subscribe_block_headers(subscription_handler)

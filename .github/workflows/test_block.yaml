@@ -35,7 +35,9 @@ jobs:
         if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
     - name: Test Client
-      run: cd tests && pytest -v
+      run: |
+      cat $PWD/test.log
+      cd tests && pytest -v
       
 
 
