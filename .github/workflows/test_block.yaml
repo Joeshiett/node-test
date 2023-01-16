@@ -39,6 +39,6 @@ jobs:
     #   run: |
     #     pytest -v
 
-     - name: Test Client
+    - name: Test Client
       working-directory: tests
       run: echo "successful"
