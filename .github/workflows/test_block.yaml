@@ -34,11 +34,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-    # - name: Test Client
-    #   working-directory: tests
-    #   run: |
-    #     pytest -v
-
     - name: Test Client
       working-directory: tests
-      run: echo "successful"
+      run: |
+        pytest -v
