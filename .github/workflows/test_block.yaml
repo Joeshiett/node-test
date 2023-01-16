@@ -22,7 +22,6 @@ jobs:
         chmod 0755 $PWD/zeitgeist
         nohup $PWD/zeitgeist --dev --tmp > test.log 2>&1 &
         echo $! > pid.txt
-        sleep 60s
         
     
     - name: Set up Python ${{ matrix.python-version }}
