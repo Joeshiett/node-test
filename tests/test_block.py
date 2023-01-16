@@ -8,7 +8,7 @@ from websocket._exceptions import WebSocketBadStatusException
 def test_websocket_rpc():
     try:
         ws_provider = SubstrateInterface(
-            url="ws://127.0.0.1:9944",
+            url="wss://wss.api.moonbase.moonbeam.network",
         )
         # Retrieve the finalized block
         ws_conn = ws_provider.connect_websocket()
@@ -24,7 +24,7 @@ def test_websocket_rpc():
 
 # Test JSON RPC connectivity
 def test_json_rpc():
-    url = 'http://127.0.0.1:9933'
+    url = 'http://rpc-0.zeitgeist.pm:9933'
     payload = {"jsonrpc":"2.0","method":"system_name","params":[],"id":1}
     response = requests.post(url, json=payload)
     assert response.status_code == 200
@@ -33,7 +33,7 @@ def test_json_rpc():
 def test_block_production():
     try:
         ws_provider = SubstrateInterface(
-            url="ws://127.0.0.1:9944",
+            url="wss://wss.api.moonbase.moonbeam.network",
         )
         
         # List to store Block numbers
