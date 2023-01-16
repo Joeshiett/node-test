@@ -39,13 +39,12 @@ def test_block_production():
         # List to store Block numbers
         block_num = []           
         def subscription_handler(obj, update_nr, subscription_id):
-            print(f"Block #{obj['header']['number']}")
             block_num.append(obj['header']['number'])
             if update_nr == 5:
-                return 'Done' 
+                return block_num 
 
         result = ws_provider.subscribe_block_headers(subscription_handler)
-        res = all(i < j for i, j in zip(block_num, block_num[1:]))
+        res = all(i < j for i, j in zip(result, result[1:]))
         if res is True:
             assert True 
         else:
