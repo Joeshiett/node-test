@@ -8,7 +8,7 @@ on:
 jobs:
   client-test:
     name: Client Test
-    runs-on: Ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: [3.11.1]
